@@ -1,0 +1,8 @@
+node_modules/
+.pnpm-store/
+Frontend/node_modules/
+Frontend/.next/
+Frontend/out/
+Frontend/.turbo/
+*.log
+pnpm-lock.yaml
