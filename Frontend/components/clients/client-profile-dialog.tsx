@@ -66,13 +66,13 @@ export function ClientProfileDialog({ open, onOpenChange, client }: ClientProfil
 
   const getRiskBadgeVariant = () => {
     if (client.riesgo >= 80) return "destructive" as const
-    if (client.riesgo >= 50) return "default" as const
+    if (client.riesgo >= 40) return "default" as const
     return "secondary" as const
   }
 
   const getRiskLabel = () => {
     if (client.riesgo >= 80) return "Alto Riesgo"
-    if (client.riesgo >= 50) return "Riesgo Medio"
+    if (client.riesgo >= 40) return "Riesgo Medio"
     return "Bajo Riesgo"
   }
 

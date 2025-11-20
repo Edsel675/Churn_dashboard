@@ -10,6 +10,7 @@ import { AgentQualityTable } from "@/components/call-center/agent-quality-table"
 import { AgentQualityChart } from "@/components/call-center/agent-quality-chart"
 import { ResponseVsChurn } from "@/components/call-center/response-vs-churn"
 import { CallCenterCausesDonut } from "@/components/call-center-causes-donut"
+import { ChurnByCauseChart } from "@/components/call-center/churn-by-cause-chart"
 import { GeoChurnMap } from "@/components/geo/geo-churn-map"
 import { FrequencyVsChurn } from "@/components/tx/frequency-vs-churn"
 import { DaysSinceLastTxHist } from "@/components/tx/days-since-last-tx-hist"
@@ -101,15 +102,18 @@ import { KPIsCompact } from "@/components/kpis-compact"
         )}
         {activeTab === "callcenter" && (
           <div className="space-y-6">
+            <div className="grid grid-cols-1 gap-6">
+              <CallCenterCausesDonut />
+            </div>
+            <div className="grid grid-cols-1 gap-6">
+              <ChurnByCauseChart />
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <AgentQualityTable />
               <AgentQualityChart />
             </div>
             <div className="grid grid-cols-1 gap-6">
               <ResponseVsChurn />
-            </div>
-            <div className="grid grid-cols-1 gap-6">
-              <CallCenterCausesDonut />
             </div>
           </div>
         )}

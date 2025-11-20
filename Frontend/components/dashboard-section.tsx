@@ -1,9 +1,9 @@
 import { DashboardHeader } from "@/components/dashboard-header"
 import { KPICards } from "@/components/kpi-cards"
-import { ChurnEvolutionChart } from "@/components/churn-evolution-chart"
 import { EconomicImpactChart } from "@/components/economic-impact-chart"
 import { TransactionsMoMChart } from "@/components/transactions-mom-chart"
-import { ChurnForecastChart } from "@/components/churn-forecast-chart"
+import { ChurnEvolutionForecastChart } from "@/components/churn-evolution-forecast-chart"
+import { CallCenterCausesDonut } from "@/components/call-center-causes-donut"
 
 export function DashboardSection() {
   return (
@@ -12,13 +12,13 @@ export function DashboardSection() {
       <KPICards />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ChurnEvolutionChart />
+        <ChurnEvolutionForecastChart />
         <EconomicImpactChart />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <TransactionsMoMChart />
-        <ChurnForecastChart />
+        <CallCenterCausesDonut />
       </div>
     </section>
   )

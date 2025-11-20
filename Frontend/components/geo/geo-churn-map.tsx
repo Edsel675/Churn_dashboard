@@ -2,7 +2,10 @@
 
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { scaleLinear } from "d3-scale"
+import { TrendingUp, TrendingDown, Users, DollarSign, AlertTriangle } from "lucide-react"
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
 const mockData = [
   { id: "MX-NLE", name: "Nuevo León", clientes: 892, churn: 10.2, ingresos: 234500, perdidas: 15600 },
@@ -12,8 +15,24 @@ const mockData = [
   { id: "MX-GUA", name: "Guanajuato", clientes: 423, churn: 9.8, ingresos: 123400, perdidas: 9100 },
 ]
 
+// Media nacional de churn (mock)
+const NATIONAL_AVERAGE = 11.5
+
+// Datos de tendencia temporal por estado (mock)
+const getTrendData = (stateName: string) => [
+  { mes: "Enero", churn: 8.5 },
+  { mes: "Febrero", churn: 9.2 },
+  { mes: "Marzo", churn: 8.8 },
+  { mes: "Abril", churn: 10.1 },
+  { mes: "Mayo", churn: 11.3 },
+  { mes: "Junio", churn: 10.7 },
+  { mes: "Julio", churn: 11.2 },
+  { mes: "Agosto", churn: 12.1 },
+]
+
 export function GeoChurnMap() {
   const [tooltipContent, setTooltipContent] = useState<any>(null)
+  const [selectedState, setSelectedState] = useState<typeof mockData[0] | null>(null)
 
   const colorScale = scaleLinear<string>()
     .domain([0, 5, 10, 15, 20])
@@ -38,6 +57,7 @@ export function GeoChurnMap() {
                 }}
                 onMouseEnter={() => setTooltipContent(state)}
                 onMouseLeave={() => setTooltipContent(null)}
+                onClick={() => setSelectedState(state)}
               >
                 <h4 className="font-semibold text-sm mb-2">{state.name}</h4>
                 <div className="space-y-1 text-xs">
@@ -92,6 +112,142 @@ export function GeoChurnMap() {
           </p>
         </div>
       </CardContent>
+
+      {/* Panel de detalles lateral */}
+      <Sheet open={selectedState !== null} onOpenChange={(open) => !open && setSelectedState(null)}>
+        <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto">
+          {selectedState && (
+            <>
+              <SheetHeader>
+                <SheetTitle className="text-2xl">{selectedState.name}</SheetTitle>
+                <SheetDescription>
+                  Análisis detallado de métricas de churn
+                </SheetDescription>
+              </SheetHeader>
+
+              <div className="mt-6 space-y-6">
+                {/* Métricas principales */}
+                <div className="grid grid-cols-2 gap-4">
+                  <Card className="bg-muted/50">
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertTriangle className="h-4 w-4 text-destructive" />
+                        <span className="text-xs text-muted-foreground">Tasa de Churn</span>
+                      </div>
+                      <div className="text-2xl font-bold">{selectedState.churn}%</div>
+                      <div className="flex items-center gap-1 mt-1">
+                        {selectedState.churn > NATIONAL_AVERAGE ? (
+                          <>
+                            <TrendingUp className="h-3 w-3 text-destructive" />
+                            <span className="text-xs text-destructive">
+                              +{(selectedState.churn - NATIONAL_AVERAGE).toFixed(1)}% vs media nacional
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <TrendingDown className="h-3 w-3 text-chart-4" />
+                            <span className="text-xs text-chart-4">
+                              {(NATIONAL_AVERAGE - selectedState.churn).toFixed(1)}% vs media nacional
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-muted/50">
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Users className="h-4 w-4 text-primary" />
+                        <span className="text-xs text-muted-foreground">Clientes</span>
+                      </div>
+                      <div className="text-2xl font-bold">{selectedState.clientes.toLocaleString()}</div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-muted/50">
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <DollarSign className="h-4 w-4 text-chart-4" />
+                        <span className="text-xs text-muted-foreground">Ingresos Mensuales</span>
+                      </div>
+                      <div className="text-2xl font-bold">${(selectedState.ingresos / 1000).toFixed(0)}k</div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-muted/50">
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertTriangle className="h-4 w-4 text-destructive" />
+                        <span className="text-xs text-muted-foreground">Pérdidas Mensuales</span>
+                      </div>
+                      <div className="text-2xl font-bold text-destructive">${(selectedState.perdidas / 1000).toFixed(0)}k</div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Comparativa con media nacional */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm">Comparativa con Media Nacional</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-muted-foreground">Media Nacional</span>
+                        <span className="font-semibold">{NATIONAL_AVERAGE}%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-muted-foreground">{selectedState.name}</span>
+                        <span className={`font-semibold ${selectedState.churn > NATIONAL_AVERAGE ? 'text-destructive' : 'text-chart-4'}`}>
+                          {selectedState.churn}%
+                        </span>
+                      </div>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full ${selectedState.churn > NATIONAL_AVERAGE ? 'bg-destructive' : 'bg-chart-4'}`}
+                          style={{ width: `${(selectedState.churn / 20) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Tendencia temporal */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm">Tendencia Temporal de Churn</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={200}>
+                      <LineChart data={getTrendData(selectedState.name)}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
+                        <XAxis dataKey="mes" stroke="var(--color-muted-foreground)" style={{ fontSize: "10px" }} />
+                        <YAxis stroke="var(--color-muted-foreground)" style={{ fontSize: "10px" }} />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: "var(--color-card)",
+                            border: `1px solid var(--color-border)`,
+                            borderRadius: "6px",
+                          }}
+                          formatter={(value: number) => `${value.toFixed(1)}%`}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="churn"
+                          stroke="var(--color-chart-2)"
+                          strokeWidth={2}
+                          dot={{ fill: "var(--color-chart-2)", r: 3 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+              </div>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
     </Card>
   )
 }

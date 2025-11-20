@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tooltip as RTooltip } from "recharts"
 import { useMemo } from "react"
+import React from "react"
 
 // Heatmap implementado con grid CSS para máxima claridad y control visual.
 // Mantiene consistencia de estilos (Card, headers) y añade tooltip custom.
@@ -85,8 +86,8 @@ export function UserLevelHeatmap() {
                 <div key={m} className="text-xs text-muted-foreground p-2">{m}</div>
               ))}
               {NIVELES.map((nivel) => (
-                <>
-                  <div key={`${nivel}-label`} className="text-xs font-medium text-foreground p-2 sticky left-0 bg-card">
+                <React.Fragment key={nivel}>
+                  <div className="text-xs font-medium text-foreground p-2 sticky left-0 bg-card">
                     {nivel}
                   </div>
                   {MESES.map((mes) => {
@@ -101,7 +102,7 @@ export function UserLevelHeatmap() {
                       />
                     )
                   })}
-                </>
+                </React.Fragment>
               ))}
             </div>
           </div>

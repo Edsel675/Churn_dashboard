@@ -95,8 +95,8 @@ const DUMMY_CUSTOMERS: Customer[] = [
 ]
 
 function getRiskColor(score: number) {
-  if (score >= 90) return "bg-destructive/10 text-destructive"
-  if (score >= 80) return "bg-accent/10 text-accent"
+  if (score >= 80) return "bg-destructive/10 text-destructive"
+  if (score >= 40) return "bg-accent/10 text-accent"
   return "bg-chart-4/10 text-chart-4"
 }
 

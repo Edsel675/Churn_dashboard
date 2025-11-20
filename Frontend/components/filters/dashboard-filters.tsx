@@ -211,19 +211,19 @@ export function DashboardFilters() {
                 <SelectItem value="high">
                   <div className="flex items-center gap-2">
                     <div className="h-2.5 w-2.5 rounded-full bg-red-500 animate-pulse" />
-                    <span>Alto (&gt;80%)</span>
+                    <span>Alto (80-100%)</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="medium">
                   <div className="flex items-center gap-2">
                     <div className="h-2.5 w-2.5 rounded-full bg-orange-500" />
-                    <span>Medio (50-80%)</span>
+                    <span>Medio (40-80%)</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="low">
                   <div className="flex items-center gap-2">
                     <div className="h-2.5 w-2.5 rounded-full bg-green-500" />
-                    <span>Bajo (&lt;50%)</span>
+                    <span>Bajo (0-40%)</span>
                   </div>
                 </SelectItem>
               </SelectContent>
