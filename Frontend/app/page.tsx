@@ -1,27 +1,34 @@
 "use client"
 
-import { useState } from "react"
+import { FilterProvider } from "@/contexts/filter-context"
+import { NavigationProvider } from "@/contexts/navigation-context"
+import { DashboardFilters } from "@/components/filters/dashboard-filters"
+import { InsightsSidebar } from "@/components/layout/insights-sidebar"
 import { MainNavbar } from "@/components/main-navbar"
-import { DashboardSection } from "@/components/dashboard-section"
-import { AnalysisSection } from "@/components/analysis-section"
-import { CustomersSection } from "@/components/customers-section"
+import { DashboardContent } from "@/components/dashboard-content"
 
-type NavSection = "dashboard" | "analysis" | "customers"
-
-export default function Page() {
-  const [activeSection, setActiveSection] = useState<NavSection>("dashboard")
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
-      <MainNavbar activeSection={activeSection} onSectionChange={setActiveSection} />
+    <NavigationProvider>
+      <FilterProvider>
+        <div className="min-h-screen bg-background flex flex-col">
+          <MainNavbar />
 
-      <main className="p-6">
-        <div className="max-w-7xl mx-auto">
-          {activeSection === "dashboard" && <DashboardSection />}
-          {activeSection === "analysis" && <AnalysisSection />}
-          {activeSection === "customers" && <CustomersSection />}
+          <div className="flex flex-1">
+            <InsightsSidebar />
+
+            <main className="flex-1">
+              <div className="sticky top-16 z-40 bg-background border-b">
+                <div className="px-6 py-4">
+                  <DashboardFilters />
+                </div>
+              </div>
+
+              <DashboardContent />
+            </main>
+          </div>
         </div>
-      </main>
-    </div>
+      </FilterProvider>
+    </NavigationProvider>
   )
 }

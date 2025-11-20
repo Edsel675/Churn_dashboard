@@ -10,7 +10,7 @@ const ECONOMIC_DATA = [
   { mes: "Abril", ingresoRetention: 44000, ingresoChurn: 8500 },
   { mes: "Mayo", ingresoRetention: 41000, ingresoChurn: 10200 },
   { mes: "Junio", ingresoRetention: 43000, ingresoChurn: 9100 },
-  { mes: "Julio", ingresoRetention: 42000, ingresoChurn: 9800 },
+  { mes: "Julio", ingresoRetention: 42000, ingresoChurn: 9800 }, 
   { mes: "Agosto", ingresoRetention: 40000, ingresoChurn: 11500 },
 ]
 
@@ -39,11 +39,11 @@ export function EconomicImpactChart() {
             <Legend wrapperStyle={{ paddingTop: "20px" }} />
             <Bar
               dataKey="ingresoRetention"
-              fill="var(--color-chart-4)"
+              fill="#14b8a6"
               radius={[4, 4, 0, 0]}
               name="Ingresos Retención"
             />
-            <Bar dataKey="ingresoChurn" fill="var(--color-chart-2)" radius={[4, 4, 0, 0]} name="Pérdidas por Churn" />
+            <Bar dataKey="ingresoChurn" fill="#ef4444" radius={[4, 4, 0, 0]} name="Pérdidas por Churn" />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

@@ -9,3 +9,6 @@ function AspectRatio({
 }
 
 export { AspectRatio }
+
+
+//mapa dinamico de mexico, para filtrar todos los datos de la primera pagina 

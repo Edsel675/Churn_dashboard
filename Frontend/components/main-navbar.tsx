@@ -1,47 +1,65 @@
 "use client"
-import { BarChart3, Users, LineChartIcon } from "lucide-react"
 
-type NavSection = "dashboard" | "analysis" | "customers"
+import { Button } from "@/components/ui/button"
+import { BarChart3, LineChart, Users } from "lucide-react"
+import { useNavigation } from "@/contexts/navigation-context"
+import { cn } from "@/lib/utils"
+import Image from "next/image"
 
-interface MainNavbarProps {
-  activeSection: NavSection
-  onSectionChange: (section: NavSection) => void
-}
+export function MainNavbar() {
+  const { activeSection, setActiveSection } = useNavigation()
 
-export function MainNavbar({ activeSection, onSectionChange }: MainNavbarProps) {
   const navItems = [
-    { id: "dashboard", label: "Panel Principal", icon: BarChart3 },
-    { id: "analysis", label: "Análisis Detallado", icon: LineChartIcon },
-    { id: "customers", label: "Clientes en Riesgo", icon: Users },
-  ] as const
+    {
+      id: "dashboard" as const,
+      label: "Panel Principal",
+      icon: BarChart3,
+    },
+    {
+      id: "analysis" as const,
+      label: "Análisis Detallado",
+      icon: LineChart,
+    },
+    {
+      id: "clients" as const,
+      label: "Clientes en Riesgo",
+      icon: Users,
+    },
+  ]
 
   return (
-    <nav className="border-b border-border bg-background sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center gap-8 h-16">
-          <div className="font-bold text-lg text-foreground">Churn Dashboard</div>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between px-6">
+        <div className="flex items-center gap-8">
+          <Image
+            src="/danu-logo.png"
+            alt="Danu Analítica"
+            width={120}
+            height={40}
+            className="h-10 w-auto"
+            priority
+          />
 
-          <div className="flex gap-1">
+          <nav className="flex items-center gap-2">
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = activeSection === item.id
 
               return (
-                <button
+                <Button
                   key={item.id}
-                  onClick={() => onSectionChange(item.id as NavSection)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
-                    isActive ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-accent"
-                  }`}
+                  variant={isActive ? "default" : "ghost"}
+                  onClick={() => setActiveSection(item.id)}
+                  className={cn("gap-2", isActive && "shadow-md")}
                 >
-                  <Icon size={18} />
-                  <span className="text-sm font-medium">{item.label}</span>
-                </button>
+                  <Icon className="h-4 w-4" />
+                  {item.label}
+                </Button>
               )
             })}
-          </div>
+          </nav>
         </div>
       </div>
-    </nav>
+    </header>
   )
 }

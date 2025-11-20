@@ -3,27 +3,28 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 
-const CHURN_DATA = [
-  { mes: "Enero", churn: 8.2, retencion: 91.8 },
-  { mes: "Febrero", churn: 9.1, retencion: 90.9 },
-  { mes: "Marzo", churn: 8.5, retencion: 91.5 },
-  { mes: "Abril", churn: 10.2, retencion: 89.8 },
-  { mes: "Mayo", churn: 11.8, retencion: 88.2 },
-  { mes: "Junio", churn: 10.9, retencion: 89.1 },
-  { mes: "Julio", churn: 11.5, retencion: 88.5 },
-  { mes: "Agosto", churn: 12.5, retencion: 87.5 },
+// Mock de % de usuarios activos (complementario al churn)
+const ACTIVE_USERS = [
+  { mes: "Enero", activosPct: 91.8 },
+  { mes: "Febrero", activosPct: 90.9 },
+  { mes: "Marzo", activosPct: 91.5 },
+  { mes: "Abril", activosPct: 89.8 },
+  { mes: "Mayo", activosPct: 88.2 },
+  { mes: "Junio", activosPct: 89.1 },
+  { mes: "Julio", activosPct: 88.5 },
+  { mes: "Agosto", activosPct: 87.5 },
 ]
 
-export function ChurnEvolutionChart() {
+export function ActiveUsersSeries() {
   return (
     <Card className="bg-card border border-border">
       <CardHeader>
-        <CardTitle className="text-lg">Evolución del Churn</CardTitle>
-        <p className="text-sm text-muted-foreground mt-1">Tendencia de los últimos 8 meses</p>
+        <CardTitle className="text-lg">% Usuarios Activos vs Tiempo</CardTitle>
+        <p className="text-sm text-muted-foreground mt-1">Complemento natural de la evolución del churn</p>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={CHURN_DATA}>
+        <ResponsiveContainer width="100%" height={280}>
+          <LineChart data={ACTIVE_USERS}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
             <XAxis dataKey="mes" stroke="var(--color-muted-foreground)" style={{ fontSize: "12px" }} />
             <YAxis stroke="var(--color-muted-foreground)" style={{ fontSize: "12px" }} />
@@ -34,16 +35,16 @@ export function ChurnEvolutionChart() {
                 borderRadius: "6px",
               }}
               labelStyle={{ color: "var(--color-foreground)" }}
+              formatter={(value) => `${(value as number).toFixed(1)}%`}
             />
             <Legend wrapperStyle={{ paddingTop: "20px" }} />
             <Line
               type="monotone"
-              dataKey="churn"
-              stroke="var(--color-chart-2)"
-              strokeWidth={2}
-              dot={{ fill: "var(--color-chart-2)", r: 4 }}
-              activeDot={{ r: 6 }}
-              name="Tasa de Churn (%)"
+              dataKey="activosPct"
+              stroke="#14b8a6"
+              strokeWidth={2.5}
+              dot={{ fill: "#14b8a6", r: 4 }}
+              name="Usuarios Activos (%)"
             />
           </LineChart>
         </ResponsiveContainer>
@@ -51,3 +52,5 @@ export function ChurnEvolutionChart() {
     </Card>
   )
 }
+
+
