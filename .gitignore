@@ -7,7 +7,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # pnpm
-pnpm-lock.yaml
+# pnpm-lock.yaml - Comentado para forzar npm en Vercel
 .pnpmfile.cjs
 
 # Next / build
@@ -33,7 +33,8 @@ build/
 # macOS
 *.DS_Store
 
-# Optional: lockfile for other package managers (if you want to ignore them)
-package-lock.json
+# Lockfiles - Solo mantener package-lock.json para Vercel
+# package-lock.json - NO ignorar (necesario para Vercel)
 yarn.lock
+pnpm-lock.yaml
 
