@@ -73,28 +73,28 @@ export function KPICards() {
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
       {kpis.map((kpi, idx) => (
         <Card key={idx} className="bg-card border border-border">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 pt-2 px-2.5">
-            <CardTitle className="text-[10px] font-medium text-muted-foreground leading-tight">{kpi.label}</CardTitle>
-            <div className={`${kpi.color} p-1 rounded-md flex-shrink-0`}>
-              {React.cloneElement(kpi.icon as React.ReactElement, { className: "w-3 h-3" })}
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1.5 pt-2.5 px-3">
+            <CardTitle className="text-xs font-medium text-muted-foreground leading-tight">{kpi.label}</CardTitle>
+            <div className={`${kpi.color} p-1.5 rounded-md flex-shrink-0`}>
+              {React.cloneElement(kpi.icon as React.ReactElement, { className: "w-4 h-4" })}
             </div>
           </CardHeader>
-          <CardContent className="px-2.5 pb-2 pt-0">
+          <CardContent className="px-3 pb-2.5 pt-0">
             <div className="flex flex-col">
-              <div className="text-base font-bold text-foreground leading-tight">{kpi.value}</div>
+              <div className="text-lg font-bold text-foreground leading-tight">{kpi.value}</div>
               {kpi.subtitle && (
-                <div className="text-[10px] text-muted-foreground mt-0.5 leading-tight line-clamp-1">{kpi.subtitle}</div>
+                <div className="text-xs text-muted-foreground mt-1 leading-tight line-clamp-1">{kpi.subtitle}</div>
               )}
-              <div className="flex items-center gap-0.5 mt-1 flex-wrap">
+              <div className="flex items-center gap-1 mt-1.5 flex-wrap">
                 {kpi.trend === "up" ? (
-                  <TrendingUp className="w-2.5 h-2.5 text-destructive flex-shrink-0" />
+                  <TrendingUp className="w-3 h-3 text-destructive flex-shrink-0" />
                 ) : (
-                  <TrendingDown className="w-2.5 h-2.5 text-chart-4 flex-shrink-0" />
+                  <TrendingDown className="w-3 h-3 text-chart-4 flex-shrink-0" />
                 )}
-                <span className={`text-[10px] font-medium ${kpi.trend === "up" ? "text-destructive" : "text-chart-4"}`}>
+                <span className={`text-xs font-medium ${kpi.trend === "up" ? "text-destructive" : "text-chart-4"}`}>
                   {Math.abs(kpi.change)}%
                 </span>
-                <span className="text-[10px] text-muted-foreground">vs anterior</span>
+                <span className="text-xs text-muted-foreground">vs anterior</span>
               </div>
             </div>
           </CardContent>

@@ -13,6 +13,13 @@ const mockData = [
   { id: "MX-JAL", name: "Jalisco", clientes: 678, churn: 11.5, ingresos: 198900, perdidas: 12800 },
   { id: "MX-MEX", name: "Estado de México", clientes: 534, churn: 14.2, ingresos: 145600, perdidas: 18900 },
   { id: "MX-GUA", name: "Guanajuato", clientes: 423, churn: 9.8, ingresos: 123400, perdidas: 9100 },
+  { id: "MX-PUE", name: "Puebla", clientes: 567, churn: 12.3, ingresos: 167800, perdidas: 15200 },
+  { id: "MX-QUE", name: "Querétaro", clientes: 389, churn: 8.5, ingresos: 112300, perdidas: 7200 },
+  { id: "MX-YUC", name: "Yucatán", clientes: 312, churn: 11.9, ingresos: 98700, perdidas: 8900 },
+  { id: "MX-SON", name: "Sonora", clientes: 445, churn: 10.7, ingresos: 134500, perdidas: 10200 },
+  { id: "MX-CHH", name: "Chihuahua", clientes: 398, churn: 9.4, ingresos: 118900, perdidas: 8100 },
+  { id: "MX-BCN", name: "Baja California", clientes: 521, churn: 13.1, ingresos: 189600, perdidas: 18700 },
+  { id: "MX-TAM", name: "Tamaulipas", clientes: 467, churn: 11.2, ingresos: 142300, perdidas: 11200 },
 ]
 
 // Media nacional de churn (mock)

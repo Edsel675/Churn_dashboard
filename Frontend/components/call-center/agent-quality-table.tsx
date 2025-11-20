@@ -25,6 +25,12 @@ const AGENTS_MOCK: AgentQuality[] = [
   { agenteId: "A07", nombre: "Elena Ríos", llamadas: 365, resueltasPct: 76, tmaSeg: 370, csat: 3.9, motivoRealMatchPct: 79, evitadoChurnPct: 29 },
   { agenteId: "A08", nombre: "Diego Vega", llamadas: 505, resueltasPct: 88, tmaSeg: 295, csat: 4.5, motivoRealMatchPct: 91, evitadoChurnPct: 41 },
   { agenteId: "A09", nombre: "Paula Méndez", llamadas: 430, resueltasPct: 83, tmaSeg: 330, csat: 4.1, motivoRealMatchPct: 84, evitadoChurnPct: 34 },
+  { agenteId: "A10", nombre: "Roberto Sánchez", llamadas: 475, resueltasPct: 87, tmaSeg: 290, csat: 4.5, motivoRealMatchPct: 89, evitadoChurnPct: 39 },
+  { agenteId: "A11", nombre: "Carmen Flores", llamadas: 420, resueltasPct: 81, tmaSeg: 340, csat: 4.1, motivoRealMatchPct: 83, evitadoChurnPct: 35 },
+  { agenteId: "A12", nombre: "Fernando Morales", llamadas: 555, resueltasPct: 90, tmaSeg: 270, csat: 4.6, motivoRealMatchPct: 92, evitadoChurnPct: 43 },
+  { agenteId: "A13", nombre: "Isabel Ramírez", llamadas: 380, resueltasPct: 77, tmaSeg: 360, csat: 3.8, motivoRealMatchPct: 78, evitadoChurnPct: 31 },
+  { agenteId: "A14", nombre: "Miguel Herrera", llamadas: 490, resueltasPct: 85, tmaSeg: 305, csat: 4.4, motivoRealMatchPct: 88, evitadoChurnPct: 38 },
+  { agenteId: "A15", nombre: "Patricia Jiménez", llamadas: 445, resueltasPct: 82, tmaSeg: 325, csat: 4.2, motivoRealMatchPct: 85, evitadoChurnPct: 36 },
 ]
 
 type SortKey = "llamadas" | "resueltasPct" | "csat"
